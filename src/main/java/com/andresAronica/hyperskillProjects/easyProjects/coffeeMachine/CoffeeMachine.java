@@ -16,34 +16,38 @@ public class CoffeeMachine {
     private static int availableDisposableCups = 9;
     private static int availableMoney = 550;
 
-    private static Scanner sc;
+    private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+        recursiveMenu();
+    }
 
-        sc = new Scanner(System.in);
+    private static void recursiveMenu() {
         String action;
-
-        while (true) {
-            System.out.println("Write action (buy, fill, take, remaining, exit):");
-            action = sc.nextLine();
-            switch (action) {
-                case "buy":
-                    buyFromCoffeeMachine();
-                    break;
-                case "fill":
-                    fillCoffeeMachine();
-                    break;
-                case "take":
-                    takeMoneyFromCoffeeMachine();
-                    break;
-                case "remaining":
-                    printCoffeeMachineStock();
-                    break;
-                case "exit":
-                    System.exit(0);
-                    break;
-            }
+        System.out.println("Write action (buy, fill, take, remaining, exit):");
+        action = sc.next();
+        switch (action) {
+            case "buy":
+                buyFromCoffeeMachine();
+                recursiveMenu();
+                break;
+            case "fill":
+                fillCoffeeMachine();
+                recursiveMenu();
+                break;
+            case "take":
+                takeMoneyFromCoffeeMachine();
+                recursiveMenu();
+                break;
+            case "remaining":
+                printCoffeeMachineStock();
+                recursiveMenu();
+                break;
+            case "exit":
+                System.exit(0);
+                break;
         }
+
     }
 
     private static void checkResources(int[] coffee) {
@@ -70,12 +74,15 @@ public class CoffeeMachine {
         String orderedCoffee = sc.next();
         switch (orderedCoffee) {
             case "1":
+            case "espresso":
                 checkResources(ESPRESSO);
                 break;
             case "2":
+            case "latte":
                 checkResources(LATTE);
                 break;
             case "3":
+            case "cappuccino":
                 checkResources(CAPPUCCINO);
                 break;
             case "back":
@@ -120,4 +127,3 @@ public class CoffeeMachine {
         System.out.println();
     }
 }
-
